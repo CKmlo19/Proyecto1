@@ -9,5 +9,13 @@ package ejercicio.proyecto1;
  * @author luisc
  */
 public class Personaje {
+    String Nombre;
+    int vida;
+    int cantidad_golpes;
+    int nivel;
+    int campos;
+    int nivel_aparicion;
+    String tipo;
+    int rango;
     
 }
