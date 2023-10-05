@@ -6,10 +6,7 @@ package ejercicio.proyecto1;
 
 import java.awt.Color;
 import java.awt.Component;
-import java.util.HashSet;
-import java.util.Set;
 import javax.swing.BorderFactory;
-import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 /**
@@ -24,7 +21,7 @@ public class Ventana extends javax.swing.JFrame {
     public Ventana() {
         initComponents();
         crearTablero(); // funcion que crea el tablero
-        Component c1 = getPosicionTablero(24, 24);
+        Component c1 = getPosicionTablero(0, 0);
         c1.setBackground(Color.red);
         
     }
@@ -148,7 +145,7 @@ public class Ventana extends javax.swing.JFrame {
     
     private Component getPosicionTablero(int filaDeseada, int columnaDeseada){
         // Obtiene la posicion de la matriz, *25 ya que son 25 cuadriculas,  inicio es (0,0)
-        int posicionPanel = (filaDeseada) * 25 + (columnaDeseada);  
+        int posicionPanel = filaDeseada * 25 + columnaDeseada;  
         Component componente = pnlPanelJuego.getComponent(posicionPanel); // inidica cual componente es
         return componente;
     }
