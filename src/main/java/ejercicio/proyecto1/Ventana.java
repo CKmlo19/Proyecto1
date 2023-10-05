@@ -5,6 +5,9 @@
 package ejercicio.proyecto1;
 
 import java.awt.Color;
+import java.awt.Component;
+import java.util.HashSet;
+import java.util.Set;
 import javax.swing.BorderFactory;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -20,15 +23,11 @@ public class Ventana extends javax.swing.JFrame {
      */
     public Ventana() {
         initComponents();
-        pnlPanelJuego.setLayout(new java.awt.GridLayout(25,25));
-       for (int i = 0; i < 625; i++) {
-            JPanel panel = new JPanel();
-            panel.setBackground(Color.LIGHT_GRAY);
-            panel.setBorder(BorderFactory.createLineBorder(Color.BLACK));
-            pnlPanelJuego.add(panel);
-        }
+        crearTablero(); // funcion que crea el tablero
+        Component c1 = getPosicionTablero(24, 24);
+        c1.setBackground(Color.red);
+        
     }
-
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -40,6 +39,7 @@ public class Ventana extends javax.swing.JFrame {
 
         jPanel5 = new javax.swing.JPanel();
         pnlPanelJuego = new javax.swing.JPanel();
+        btnInicio = new javax.swing.JButton();
 
         jPanel5.setBackground(new java.awt.Color(255, 51, 51));
         jPanel5.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
@@ -57,31 +57,48 @@ public class Ventana extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(153, 153, 255));
-        setPreferredSize(new java.awt.Dimension(800, 800));
 
         pnlPanelJuego.setBackground(new java.awt.Color(255, 255, 255));
         pnlPanelJuego.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        pnlPanelJuego.setLayout(new java.awt.GridLayout());
+        pnlPanelJuego.setLayout(new java.awt.GridLayout(1, 0));
+
+        btnInicio.setText("Iniciar Juego");
+        btnInicio.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnInicioActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(95, 95, 95)
-                .addComponent(pnlPanelJuego, javax.swing.GroupLayout.PREFERRED_SIZE, 600, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(95, 95, 95)
+                        .addComponent(pnlPanelJuego, javax.swing.GroupLayout.PREFERRED_SIZE, 600, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(119, 119, 119)
+                        .addComponent(btnInicio)))
                 .addContainerGap(105, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(139, Short.MAX_VALUE)
+                .addGap(38, 38, 38)
+                .addComponent(btnInicio)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 88, Short.MAX_VALUE)
                 .addComponent(pnlPanelJuego, javax.swing.GroupLayout.PREFERRED_SIZE, 600, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(61, 61, 61))
+                .addGap(51, 51, 51))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnInicioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInicioActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnInicioActionPerformed
 
     /**
      * @param args the command line arguments
@@ -117,9 +134,27 @@ public class Ventana extends javax.swing.JFrame {
             }
         });
     }
+    
+    private void crearTablero()
+    {
+        pnlPanelJuego.setLayout(new java.awt.GridLayout(25,25)); // crea las cuadriculas
+        for (int i = 0; i < 625; i++) { // 625 ya que son 25x25 paneles, en un grid layout se acomoda automaticamente
+            JPanel panel = new JPanel();
+            panel.setBackground(Color.LIGHT_GRAY);
+            panel.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+            pnlPanelJuego.add(panel);
+        }
+    }
+    
+    private Component getPosicionTablero(int filaDeseada, int columnaDeseada){
+        // Obtiene la posicion de la matriz, *25 ya que son 25 cuadriculas,  inicio es (0,0)
+        int posicionPanel = (filaDeseada) * 25 + (columnaDeseada);  
+        Component componente = pnlPanelJuego.getComponent(posicionPanel); // inidica cual componente es
+        return componente;
+    }
         
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JPanel jPanel1;
+    private javax.swing.JButton btnInicio;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel pnlPanelJuego;
     // End of variables declaration//GEN-END:variables
