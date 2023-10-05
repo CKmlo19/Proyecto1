@@ -11,6 +11,8 @@ package ejercicio.proyecto1;
 public class Proyecto1 {
 
     public static void main(String[] args) {
-        System.out.println("Hello World!");
+        Ventana v1 = new Ventana();
+        v1.setVisible(true);
+
     }
 }
