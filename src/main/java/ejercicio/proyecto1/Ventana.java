@@ -4,6 +4,8 @@
  */
 package ejercicio.proyecto1;
 
+import java.awt.Color;
+import javax.swing.BorderFactory;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
@@ -18,6 +20,13 @@ public class Ventana extends javax.swing.JFrame {
      */
     public Ventana() {
         initComponents();
+        pnlPanelJuego.setLayout(new java.awt.GridLayout(25,25));
+       for (int i = 0; i < 625; i++) {
+            JPanel panel = new JPanel();
+            panel.setBackground(Color.LIGHT_GRAY);
+            panel.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+            pnlPanelJuego.add(panel);
+        }
     }
 
     /**
@@ -52,23 +61,23 @@ public class Ventana extends javax.swing.JFrame {
 
         pnlPanelJuego.setBackground(new java.awt.Color(255, 255, 255));
         pnlPanelJuego.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        pnlPanelJuego.setLayout(null);
+        pnlPanelJuego.setLayout(new java.awt.GridLayout());
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(83, 83, 83)
+                .addGap(95, 95, 95)
                 .addComponent(pnlPanelJuego, javax.swing.GroupLayout.PREFERRED_SIZE, 600, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(117, Short.MAX_VALUE))
+                .addContainerGap(105, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(181, Short.MAX_VALUE)
+                .addContainerGap(139, Short.MAX_VALUE)
                 .addComponent(pnlPanelJuego, javax.swing.GroupLayout.PREFERRED_SIZE, 600, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(19, 19, 19))
+                .addGap(61, 61, 61))
         );
 
         pack();
@@ -108,8 +117,9 @@ public class Ventana extends javax.swing.JFrame {
             }
         });
     }
-
+        
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel pnlPanelJuego;
     // End of variables declaration//GEN-END:variables
