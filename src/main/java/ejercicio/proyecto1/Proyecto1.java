@@ -18,6 +18,7 @@ public class Proyecto1 {
         Ventana v1 = new Ventana();
         v1.setVisible(true);
         v1.getContentPane().setBackground(Color.white);
+        Personaje p1 = new Personaje("Zombie", 100, 2, 3, 1, 0, "de contacto", 100);
         
     }
 }
