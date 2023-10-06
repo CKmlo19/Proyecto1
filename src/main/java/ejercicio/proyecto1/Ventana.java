@@ -6,7 +6,11 @@ package ejercicio.proyecto1;
 
 import java.awt.Color;
 import java.awt.Component;
+import java.awt.GridLayout;
+import java.util.ArrayList;
+import java.util.Random;
 import javax.swing.BorderFactory;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 /**
@@ -14,15 +18,28 @@ import javax.swing.JPanel;
  * @author luisc
  */
 public class Ventana extends javax.swing.JFrame {
-
+    ArrayList<ThreadPersonaje> zombies;
     /**
      * Creates new form Ventana
      */
     public Ventana() {
+        zombies = new ArrayList<ThreadPersonaje>();
         initComponents();
         crearTablero(); // funcion que crea el tablero
-        Component c1 = getPosicionTablero(0, 0);
-        c1.setBackground(Color.red);
+        Component c1 = getComponenteTablero(24, 24);
+        addComponenteTablero(c1);
+        //c1.setBackground(Color.red);
+        //generarZombies(2);
+//        JPanel panel2 = (JPanel) c1;
+//        JLabel label = new JLabel("100%");
+//        panel2.add(label);
+//            label.setBackground(Color.red);
+//            label.setForeground(new java.awt.Color(255, 255, 255));
+//            label.setFont(new java.awt.Font("Helvetica Neue", 0, 10)); // NOI18N
+//            label.setForeground(new java.awt.Color(255, 255, 255));
+//            label.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+//            label.setOpaque(true);
+        //addComponenteTablero(2, 2);
         
     }
     /**
@@ -57,9 +74,14 @@ public class Ventana extends javax.swing.JFrame {
 
         pnlPanelJuego.setBackground(new java.awt.Color(255, 255, 255));
         pnlPanelJuego.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        pnlPanelJuego.setLayout(new java.awt.GridLayout(1, 0));
+        pnlPanelJuego.setLayout(new java.awt.GridLayout());
 
         btnInicio.setText("Iniciar Juego");
+        btnInicio.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnInicioMouseClicked(evt);
+            }
+        });
         btnInicio.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnInicioActionPerformed(evt);
@@ -73,21 +95,21 @@ public class Ventana extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(95, 95, 95)
-                        .addComponent(pnlPanelJuego, javax.swing.GroupLayout.PREFERRED_SIZE, 600, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
                         .addGap(119, 119, 119)
-                        .addComponent(btnInicio)))
-                .addContainerGap(105, Short.MAX_VALUE))
+                        .addComponent(btnInicio))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(61, 61, 61)
+                        .addComponent(pnlPanelJuego, javax.swing.GroupLayout.PREFERRED_SIZE, 881, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(83, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+            .addGroup(layout.createSequentialGroup()
                 .addGap(38, 38, 38)
                 .addComponent(btnInicio)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 88, Short.MAX_VALUE)
-                .addComponent(pnlPanelJuego, javax.swing.GroupLayout.PREFERRED_SIZE, 600, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(51, 51, 51))
+                .addGap(42, 42, 42)
+                .addComponent(pnlPanelJuego, javax.swing.GroupLayout.PREFERRED_SIZE, 631, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(66, Short.MAX_VALUE))
         );
 
         pack();
@@ -95,7 +117,21 @@ public class Ventana extends javax.swing.JFrame {
 
     private void btnInicioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInicioActionPerformed
         // TODO add your handling code here:
+         for (int i = 0; i < zombies.size(); i++) {
+            ThreadPersonaje get = zombies.get(i);
+            get.start();
+            
+        }
     }//GEN-LAST:event_btnInicioActionPerformed
+
+    private void btnInicioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnInicioMouseClicked
+        // TODO add your handling code here:
+        for (int i = 0; i < zombies.size(); i++) {
+            ThreadPersonaje get = zombies.get(i);
+            get.start();
+            
+        }
+    }//GEN-LAST:event_btnInicioMouseClicked
 
     /**
      * @param args the command line arguments
@@ -139,16 +175,95 @@ public class Ventana extends javax.swing.JFrame {
             JPanel panel = new JPanel();
             panel.setBackground(Color.LIGHT_GRAY);
             panel.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+            panel.setLayout(new java.awt.BorderLayout(1,1));
             pnlPanelJuego.add(panel);
         }
     }
-    
-    private Component getPosicionTablero(int filaDeseada, int columnaDeseada){
+    // esta funcion agrega un componente dentro del JPanel de la posicion dada
+    private Component getComponenteTablero(int filaDeseada, int columnaDeseada){
         // Obtiene la posicion de la matriz, *25 ya que son 25 cuadriculas,  inicio es (0,0)
         int posicionPanel = filaDeseada * 25 + columnaDeseada;  
+       // JPanel componente = (JPanel) pnlPanelJuego.getComponentAt(filaDeseada, columnaDeseada); // se le tiene que hacer un casting because java
         Component componente = pnlPanelJuego.getComponent(posicionPanel); // inidica cual componente es
         return componente;
+        //return posicionPanel;
+//        JLabel label = new JLabel("100%");
+//            label.setBackground(Color.red);
+//            label.setForeground(new java.awt.Color(255, 255, 255));
+//            label.setFont(new java.awt.Font("Helvetica Neue", 0, 10)); // NOI18N
+//            label.setForeground(new java.awt.Color(255, 255, 255));
+//            label.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+//            label.setOpaque(true);
+//        componente.add(label);
+        
     }
+    // Esta funcion agrega un componente al tablero
+    private void addComponenteTablero(Component componente){
+        JPanel panel2 = (JPanel) componente; //Al componente, que es un JPanel se le debe hacer un casting
+        JLabel label = new JLabel("100%");
+        label.setBackground(Color.red);
+        label.setForeground(new java.awt.Color(255, 255, 255));
+        label.setFont(new java.awt.Font("Helvetica Neue", 0, 10)); // NOI18N
+        label.setForeground(new java.awt.Color(255, 255, 255));
+        label.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        label.setOpaque(true);
+        panel2.add(label);
+    }
+    
+
+    
+    public void moverPersonaje(JLabel label){
+        int x = (new Random()).nextInt(25);
+        int y = (new Random()).nextInt(25);
+       // int posicion = getPosicionTablero(x, y);
+    }
+     public void generarZombies(int size){
+        
+        for (int i = 0; i < size; i++) {
+            //crea el label
+            JLabel label =  new JLabel("100%");
+            label.setBackground(Color.red);
+            label.setForeground(new java.awt.Color(255, 255, 255));
+            label.setFont(new java.awt.Font("Helvetica Neue", 0, 10)); // NOI18N
+            label.setForeground(new java.awt.Color(255, 255, 255));
+            label.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+            label.setOpaque(true);
+            
+            // crear el zombie aleatoriamente, del tipo que corresponda
+            Zombie zombie = new Zombie("Zombie", 100, 2, 3, 1, 0, "de contacto", 100);
+            zombie.setLabel(label);
+            
+            // Crear el thread
+            ThreadPersonaje tp =  new ThreadPersonaje(zombie, this);
+            zombies.add(tp);
+            
+            pnlPanelJuego.add(label);
+            //setAparicion(label);
+            //label.setSize(30, 20);
+            
+            //label.setVisible(false);
+        }
+        
+    }
+     
+     public void setAparicion(JLabel label){
+        int colOrRow = (new Random()).nextInt(2);//0: col  1: filas
+            int dir = (new Random()).nextInt(2);//0: primera  1: segunda
+            if (colOrRow == 0){
+                if (dir == 0)
+                    label.setLocation((new Random()).nextInt(600), 0);
+                else
+                    label.setLocation((new Random()).nextInt(600), 580);
+            }else{
+                if (dir == 0)
+                    label.setLocation(0, (new Random()).nextInt(600));
+                else
+                    label.setLocation(580, (new Random()).nextInt(600));
+            }
+
+            //label.setVisible(true);
+    }
+
         
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnInicio;

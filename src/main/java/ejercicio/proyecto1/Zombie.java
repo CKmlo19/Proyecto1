@@ -4,6 +4,8 @@
  */
 package ejercicio.proyecto1;
 
+import javax.swing.JPanel;
+
 /**
  *
  * @author luisc

@@ -4,6 +4,8 @@
  */
 package ejercicio.proyecto1;
 
+import javax.swing.JLabel;
+
 /**
  *
  * @author luisc
@@ -17,6 +19,7 @@ public class Personaje {
     int nivel_aparicion;
     String tipo;
     int rango;
+    JLabel label;
 
     public Personaje(String Nombre, int vida, int cantidad_golpes, int nivel, int campos, int nivel_aparicion, String tipo, int rango) {
         this.Nombre = Nombre;
@@ -28,6 +31,7 @@ public class Personaje {
         this.tipo = tipo;
         this.rango = rango;
     }
+
 
     @Override
     public String toString() {
@@ -96,6 +100,14 @@ public class Personaje {
 
     public void setRango(int rango) {
         this.rango = rango;
+    }
+
+    public JLabel getLabel() {
+        return label;
+    }
+
+    public void setLabel(JLabel label) {
+        this.label = label;
     }
     
     
