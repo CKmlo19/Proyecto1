@@ -28,19 +28,8 @@ public class Ventana extends javax.swing.JFrame {
         crearTablero(); // funcion que crea el tablero
         Component c1 = getComponenteTablero(24, 24);
         addComponenteTablero(c1);
-        //c1.setBackground(Color.red);
         //generarZombies(2);
-//        JPanel panel2 = (JPanel) c1;
-//        JLabel label = new JLabel("100%");
-//        panel2.add(label);
-//            label.setBackground(Color.red);
-//            label.setForeground(new java.awt.Color(255, 255, 255));
-//            label.setFont(new java.awt.Font("Helvetica Neue", 0, 10)); // NOI18N
-//            label.setForeground(new java.awt.Color(255, 255, 255));
-//            label.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-//            label.setOpaque(true);
-        //addComponenteTablero(2, 2);
-        
+
     }
     /**
      * This method is called from within the constructor to initialize the form.
@@ -183,18 +172,8 @@ public class Ventana extends javax.swing.JFrame {
     private Component getComponenteTablero(int filaDeseada, int columnaDeseada){
         // Obtiene la posicion de la matriz, *25 ya que son 25 cuadriculas,  inicio es (0,0)
         int posicionPanel = filaDeseada * 25 + columnaDeseada;  
-       // JPanel componente = (JPanel) pnlPanelJuego.getComponentAt(filaDeseada, columnaDeseada); // se le tiene que hacer un casting because java
         Component componente = pnlPanelJuego.getComponent(posicionPanel); // inidica cual componente es
         return componente;
-        //return posicionPanel;
-//        JLabel label = new JLabel("100%");
-//            label.setBackground(Color.red);
-//            label.setForeground(new java.awt.Color(255, 255, 255));
-//            label.setFont(new java.awt.Font("Helvetica Neue", 0, 10)); // NOI18N
-//            label.setForeground(new java.awt.Color(255, 255, 255));
-//            label.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-//            label.setOpaque(true);
-//        componente.add(label);
         
     }
     // Esta funcion agrega un componente al tablero
