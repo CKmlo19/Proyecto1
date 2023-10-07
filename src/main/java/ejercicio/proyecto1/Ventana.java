@@ -197,6 +197,8 @@ public class Ventana extends javax.swing.JFrame {
         int x = (new Random()).nextInt(25);
         int y = (new Random()).nextInt(25);
         
+       // Component c1 = 
+        
     }
      public void generarZombies(int size){
         
