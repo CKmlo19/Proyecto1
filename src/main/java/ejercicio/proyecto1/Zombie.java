@@ -12,8 +12,39 @@ import javax.swing.JPanel;
  */
 
 // clase que hereda de personaje
-public class Zombie extends Personaje{
+import javax.swing.ImageIcon;
+import javax.swing.JLabel;
+
+
+public class Zombie extends Personaje {
+    private int posicion_x;
+    private int posicion_y;
+    private TipoZombie tipoZombie;
+
     public Zombie(String Nombre, int vida, int cantidad_golpes, int nivel, int campos, int nivel_aparicion, String tipo, int rango) {
         super(Nombre, vida, cantidad_golpes, nivel, campos, nivel_aparicion, tipo, rango);
+        this.tipoZombie = tipoZombie;
+        this.posicion_x = posicion_x;
+        this.posicion_y = posicion_y;
+    }
+
+    public JLabel getLabel() {
+        ImageIcon icon = new ImageIcon(getClass().getResource(tipoZombie.getRutaImagen()));
+        JLabel label = new JLabel(icon);
+        return label;
+    }
+    
+    @Override
+    public String toString() {
+        return "Zombie{" + "Nombre=" + getNombre() + ", tipo=" + tipoZombie.getNombre() + '}';
     }
 }
+
+    
+    
+    
+    
+    
+    
+    
+    
