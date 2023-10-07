@@ -26,9 +26,9 @@ public class Ventana extends javax.swing.JFrame {
         zombies = new ArrayList<ThreadPersonaje>();
         initComponents();
         crearTablero(); // funcion que crea el tablero
-        Component c1 = getComponenteTablero(24, 24);
-        addComponenteTablero(c1);
-        //generarZombies(2);
+        Component c1 = getJPanelTablero(24, 24);
+       // addComponenteTablero(c1);
+        generarZombies(2);
 
     }
     /**
@@ -168,25 +168,27 @@ public class Ventana extends javax.swing.JFrame {
             pnlPanelJuego.add(panel);
         }
     }
-    // esta funcion agrega un componente dentro del JPanel de la posicion dada
-    private Component getComponenteTablero(int filaDeseada, int columnaDeseada){
+    // esta funcion retorna el JPanel del tablero en una posicion x,y dado
+    private JPanel getJPanelTablero(int filaDeseada, int columnaDeseada){
         // Obtiene la posicion de la matriz, *25 ya que son 25 cuadriculas,  inicio es (0,0)
         int posicionPanel = filaDeseada * 25 + columnaDeseada;  
-        Component componente = pnlPanelJuego.getComponent(posicionPanel); // inidica cual componente es
-        return componente;
-        
+        JPanel panel = (JPanel)pnlPanelJuego.getComponent(posicionPanel); // Obtiene el componente y le hace un casting a JPanel
+        return panel;  
     }
-    // Esta funcion agrega un componente al tablero
-    private void addComponenteTablero(Component componente){
-        JPanel panel2 = (JPanel) componente; //Al componente, que es un JPanel se le debe hacer un casting
-        JLabel label = new JLabel("100%");
-        label.setBackground(Color.red);
-        label.setForeground(new java.awt.Color(255, 255, 255));
-        label.setFont(new java.awt.Font("Helvetica Neue", 0, 10)); // NOI18N
-        label.setForeground(new java.awt.Color(255, 255, 255));
-        label.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        label.setOpaque(true);
-        panel2.add(label);
+    // Esta funcion agrega un componente al tablero en la posicion x,y dado
+    public void addComponenteTablero(JLabel label, int fila, int columna){
+//        JPanel panel2 = (JPanel) componente; //Al componente, que es un JPanel se le debe hacer un casting
+//        JLabel label = new JLabel("100%");
+//        label.setBackground(Color.red);
+//        label.setForeground(new java.awt.Color(255, 255, 255));
+//        label.setFont(new java.awt.Font("Helvetica Neue", 0, 10)); // NOI18N
+//        label.setForeground(new java.awt.Color(255, 255, 255));
+//        label.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+//        label.setOpaque(true);
+//        panel2.add(label);
+
+          JPanel casilla_tablero = getJPanelTablero(fila, columna);
+          casilla_tablero.add(label);
     }
     
 
@@ -194,7 +196,7 @@ public class Ventana extends javax.swing.JFrame {
     public void moverPersonaje(JLabel label){
         int x = (new Random()).nextInt(25);
         int y = (new Random()).nextInt(25);
-       // int posicion = getPosicionTablero(x, y);
+        
     }
      public void generarZombies(int size){
         
@@ -215,12 +217,19 @@ public class Ventana extends javax.swing.JFrame {
             // Crear el thread
             ThreadPersonaje tp =  new ThreadPersonaje(zombie, this);
             zombies.add(tp);
+            int x = (new Random()).nextInt(25);
+            int y = (new Random()).nextInt(25);
+            addComponenteTablero(label, x, y);
             
-            pnlPanelJuego.add(label);
+            
+           
+            
+           // pnlPanelJuego.add(label);
             //setAparicion(label);
             //label.setSize(30, 20);
             
             //label.setVisible(false);
+            
         }
         
     }
