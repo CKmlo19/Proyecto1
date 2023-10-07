@@ -176,16 +176,6 @@ public class Ventana extends javax.swing.JFrame {
     }
     // Esta funcion agrega un componente al tablero en la posicion x,y dado
     public void addComponenteTablero(JLabel label, int fila, int columna){
-//        JPanel panel2 = (JPanel) componente; //Al componente, que es un JPanel se le debe hacer un casting
-//        JLabel label = new JLabel("100%");
-//        label.setBackground(Color.red);
-//        label.setForeground(new java.awt.Color(255, 255, 255));
-//        label.setFont(new java.awt.Font("Helvetica Neue", 0, 10)); // NOI18N
-//        label.setForeground(new java.awt.Color(255, 255, 255));
-//        label.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-//        label.setOpaque(true);
-//        panel2.add(label);
-
           JPanel casilla_tablero = getJPanelTablero(fila, columna);
           casilla_tablero.add(label);
     }
