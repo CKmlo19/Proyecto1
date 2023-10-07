@@ -109,7 +109,7 @@ public class Ventana extends javax.swing.JFrame {
          for (int i = 0; i < zombies.size(); i++) {
             ThreadPersonaje get = zombies.get(i);
             get.start();
-            
+            btnInicio.setEnabled(false);
         }
     }//GEN-LAST:event_btnInicioActionPerformed
 
