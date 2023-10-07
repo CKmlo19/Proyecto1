@@ -26,7 +26,7 @@ public class Ventana extends javax.swing.JFrame {
         zombies = new ArrayList<ThreadPersonaje>();
         initComponents();
         crearTablero(); // funcion que crea el tablero
-        Component c1 = getJPanelTablero(24, 24);
+       // Component c1 = getJPanelTablero(24, 24);
        // addComponenteTablero(c1);
         generarZombies(2);
 
@@ -115,11 +115,10 @@ public class Ventana extends javax.swing.JFrame {
 
     private void btnInicioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnInicioMouseClicked
         // TODO add your handling code here:
-        for (int i = 0; i < zombies.size(); i++) {
-            ThreadPersonaje get = zombies.get(i);
-            get.start();
+//        for (int i = 0; i < zombies.size(); i++) {
+//            ThreadPersonaje get = zombies.get(i);
+//            get.start();
             
-        }
     }//GEN-LAST:event_btnInicioMouseClicked
 
     /**
@@ -197,10 +196,12 @@ public class Ventana extends javax.swing.JFrame {
         int x = (new Random()).nextInt(25);
         int y = (new Random()).nextInt(25);
         
-       // Component c1 = 
-        
+        JPanel panel_label = (JPanel)label.getParent(); // obtiene el panel donde se ubica el JLabel
+        panel_label.removeAll(); // elimina todo lo que esta dentro de este panel
+        addComponenteTablero(label, x, y);
+        pnlPanelJuego.repaint();
     }
-     public void generarZombies(int size){
+    private void generarZombies(int size){
         
         for (int i = 0; i < size; i++) {
             //crea el label
@@ -213,7 +214,7 @@ public class Ventana extends javax.swing.JFrame {
             label.setOpaque(true);
             
             // crear el zombie aleatoriamente, del tipo que corresponda
-            Zombie zombie = new Zombie("Zombie", 100, 2, 3, 1, 0, "de contacto", 100);
+            Personaje zombie = new Personaje("Zombie", 100, 2, 3, 1, 0, "de contacto", 100);
             zombie.setLabel(label);
             
             // Crear el thread
