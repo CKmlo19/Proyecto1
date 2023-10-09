@@ -31,6 +31,10 @@ public class Personaje {
         this.tipo = tipo;
         this.rango = rango;
     }
+    
+    public Personaje() {
+       
+    }
 
 
     @Override

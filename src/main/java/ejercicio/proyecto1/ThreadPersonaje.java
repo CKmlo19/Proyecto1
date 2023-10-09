@@ -34,7 +34,16 @@ public class ThreadPersonaje extends Thread{
             }
             
         }
-        
+    }
+    public void pausar(){
+        this.isRunning = false;
+    }
+    
+    public void reanudar(){
+        this.isRunning = true;
+        synchronized (this) {
+            notify();
+        }
     }
     
     

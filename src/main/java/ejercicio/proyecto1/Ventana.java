@@ -18,12 +18,15 @@ import javax.swing.JPanel;
  * @author luisc
  */
 public class Ventana extends javax.swing.JFrame {
-    ArrayList<ThreadPersonaje> zombies;
+   private ArrayList<ThreadPersonaje> zombies;
+   private JPanel[][] tablero; // el tablero es una matriz
+    
     /**
      * Creates new form Ventana
      */
     public Ventana() {
         zombies = new ArrayList<ThreadPersonaje>();
+        tablero = new JPanel[25][25];
         initComponents();
         crearTablero(); // funcion que crea el tablero
        // Component c1 = getJPanelTablero(24, 24);
@@ -43,6 +46,7 @@ public class Ventana extends javax.swing.JFrame {
         jPanel5 = new javax.swing.JPanel();
         pnlPanelJuego = new javax.swing.JPanel();
         btnInicio = new javax.swing.JButton();
+        btnDetener = new javax.swing.JButton();
 
         jPanel5.setBackground(new java.awt.Color(255, 51, 51));
         jPanel5.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
@@ -63,7 +67,7 @@ public class Ventana extends javax.swing.JFrame {
 
         pnlPanelJuego.setBackground(new java.awt.Color(255, 255, 255));
         pnlPanelJuego.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        pnlPanelJuego.setLayout(new java.awt.GridLayout());
+        pnlPanelJuego.setLayout(new java.awt.GridLayout(1, 0));
 
         btnInicio.setText("Iniciar Juego");
         btnInicio.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -77,25 +81,36 @@ public class Ventana extends javax.swing.JFrame {
             }
         });
 
+        btnDetener.setText("Pausar");
+        btnDetener.setEnabled(false);
+        btnDetener.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDetenerActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(119, 119, 119)
-                        .addComponent(btnInicio))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(61, 61, 61)
-                        .addComponent(pnlPanelJuego, javax.swing.GroupLayout.PREFERRED_SIZE, 881, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(61, 61, 61)
+                .addComponent(pnlPanelJuego, javax.swing.GroupLayout.PREFERRED_SIZE, 881, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(83, Short.MAX_VALUE))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(119, 119, 119)
+                .addComponent(btnInicio)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btnDetener)
+                .addGap(181, 181, 181))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(38, 38, 38)
-                .addComponent(btnInicio)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnInicio)
+                    .addComponent(btnDetener))
                 .addGap(42, 42, 42)
                 .addComponent(pnlPanelJuego, javax.swing.GroupLayout.PREFERRED_SIZE, 631, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(66, Short.MAX_VALUE))
@@ -111,6 +126,7 @@ public class Ventana extends javax.swing.JFrame {
             get.start();
             btnInicio.setEnabled(false);
         }
+         btnDetener.setEnabled(true);
     }//GEN-LAST:event_btnInicioActionPerformed
 
     private void btnInicioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnInicioMouseClicked
@@ -120,6 +136,30 @@ public class Ventana extends javax.swing.JFrame {
 //            get.start();
             
     }//GEN-LAST:event_btnInicioMouseClicked
+
+    private void btnDetenerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDetenerActionPerformed
+       if (btnDetener.getText().equals("Pausar")){
+            for (int i = 0; i < zombies.size(); i++) {
+            ThreadPersonaje get = zombies.get(i);
+            get.pausar();
+            }
+        btnDetener.setText("Reanudar");
+       }
+       else{
+        for (int i = 0; i < zombies.size(); i++) {
+            ThreadPersonaje get = zombies.get(i);
+            get.resume();
+            get.reanudar();
+            }
+        btnDetener.setText("Pausar");
+        }
+        
+//        for (int i = 0; i < zombies.size(); i++) {
+//            ThreadPersonaje get = zombies.get(i);
+//            get.detener();
+//        }
+//       btnDetener.setText("Reanudar");
+    }//GEN-LAST:event_btnDetenerActionPerformed
 
     /**
      * @param args the command line arguments
@@ -155,8 +195,22 @@ public class Ventana extends javax.swing.JFrame {
             }
         });
     }
+    // crea un tablero que es una matriz de 25x25 
+    private void crearTablero(){
+        pnlPanelJuego.setLayout(new java.awt.GridLayout(25,25));
+        for (int fila = 0; fila < tablero.length; fila++) {
+            for (int columna = 0; columna < tablero[0].length; columna++){
+                tablero[fila][columna] = new JPanel();
+               // JPanel panel = new JPanel();
+                tablero[fila][columna].setBackground(Color.LIGHT_GRAY);
+                tablero[fila][columna].setBorder(BorderFactory.createLineBorder(Color.BLACK));
+                tablero[fila][columna].setLayout(new java.awt.BorderLayout(1,1));
+                pnlPanelJuego.add(tablero[fila][columna]);
+            }
+        }
+    }
     
-    private void crearTablero()
+    private void dibujarTablero()
     {
         pnlPanelJuego.setLayout(new java.awt.GridLayout(25,25)); // crea las cuadriculas
         for (int i = 0; i < 625; i++) { // 625 ya que son 25x25 paneles, en un grid layout se acomoda automaticamente
@@ -167,26 +221,30 @@ public class Ventana extends javax.swing.JFrame {
             pnlPanelJuego.add(panel);
         }
     }
+    // funcion que vacia una casilla dada
+    private void vaciarCasilla(int x, int y){
+    
+    
+    
+    }
+    
     // esta funcion retorna el JPanel del tablero en una posicion x,y dado
     private JPanel getJPanelTablero(int filaDeseada, int columnaDeseada){
         // Obtiene la posicion de la matriz, *25 ya que son 25 cuadriculas,  inicio es (0,0)
-        int posicionPanel = filaDeseada * 25 + columnaDeseada;  
-        JPanel panel = (JPanel)pnlPanelJuego.getComponent(posicionPanel); // Obtiene el componente y le hace un casting a JPanel
-        return panel;  
+        return tablero[filaDeseada][columnaDeseada];
     }
+    
     // Esta funcion agrega un componente al tablero en la posicion x,y dado
     public void addComponenteTablero(JLabel label, int fila, int columna){
           JPanel casilla_tablero = getJPanelTablero(fila, columna);
           casilla_tablero.add(label);
     }
     
-
-    
     public void moverPersonaje(JLabel label){
         int x = (new Random()).nextInt(25);
         int y = (new Random()).nextInt(25);
         
-        JPanel panel_label = (JPanel)label.getParent(); // obtiene el panel donde se ubica el JLabel
+        JPanel panel_label = tablero[x][y]; // obtiene el panel donde se ubica el JLabel
         panel_label.removeAll(); // elimina todo lo que esta dentro de este panel
         addComponenteTablero(label, x, y);
         pnlPanelJuego.repaint();
@@ -226,6 +284,7 @@ public class Ventana extends javax.swing.JFrame {
         }
         
     }
+    
      
      public void setAparicion(JLabel label){
         int colOrRow = (new Random()).nextInt(2);//0: col  1: filas
@@ -247,6 +306,7 @@ public class Ventana extends javax.swing.JFrame {
 
         
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnDetener;
     private javax.swing.JButton btnInicio;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel pnlPanelJuego;
