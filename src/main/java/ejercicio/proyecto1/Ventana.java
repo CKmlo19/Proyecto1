@@ -31,7 +31,7 @@ public class Ventana extends javax.swing.JFrame {
         crearTablero(); // funcion que crea el tablero
        // Component c1 = getJPanelTablero(24, 24);
        // addComponenteTablero(c1);
-        generarZombies(2);
+        generarZombies(1);
 
     }
     /**
@@ -141,7 +141,8 @@ public class Ventana extends javax.swing.JFrame {
        if (btnDetener.getText().equals("Pausar")){
             for (int i = 0; i < zombies.size(); i++) {
             ThreadPersonaje get = zombies.get(i);
-            get.pausar();
+            get.suspend();
+           // get.pausar();
             }
         btnDetener.setText("Reanudar");
        }
@@ -149,7 +150,7 @@ public class Ventana extends javax.swing.JFrame {
         for (int i = 0; i < zombies.size(); i++) {
             ThreadPersonaje get = zombies.get(i);
             get.resume();
-            get.reanudar();
+            //get.reanudar();
             }
         btnDetener.setText("Pausar");
         }
@@ -241,13 +242,20 @@ public class Ventana extends javax.swing.JFrame {
     }
     
     public void moverPersonaje(JLabel label){
-        int x = (new Random()).nextInt(25);
-        int y = (new Random()).nextInt(25);
-        
+       boolean isEmpty = true; // este codigo sirve para saber si la posicion esta vacia
+       int x = (new Random()).nextInt(25);
+       int y = (new Random()).nextInt(25);
+       while(isEmpty){
+           x = (new Random()).nextInt(25);
+           y = (new Random()).nextInt(25);
+           int cantidad_componentes = tablero[x][y].getComponentCount();
+           if (cantidad_componentes == 0){ // si esta vacio sale del loop
+               isEmpty = false;
+           }
+       }
        // int x = 24;
         //int y = 24;
-        
-        JPanel panel_label = tablero[x][y]; // obtiene el panel donde se ubica el JLabel
+        JPanel panel_label = tablero[x][y]; // obtiene el panel donde se ubica el JLa
         panel_label.removeAll(); // elimina todo lo que esta dentro de este panel
         addComponenteTablero(label, x, y);
         pnlPanelJuego.repaint();
