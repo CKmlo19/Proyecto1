@@ -38,6 +38,8 @@ public class Zombie extends Personaje {
     public String toString() {
         return "Zombie{" + "Nombre=" + getNombre() + ", tipo=" + tipoZombie.getNombre() + '}';
     }
+
+   
 }
 
     

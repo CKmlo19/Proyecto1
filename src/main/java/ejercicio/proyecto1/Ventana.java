@@ -5,8 +5,6 @@
 package ejercicio.proyecto1;
 
 import java.awt.Color;
-import java.awt.Component;
-import java.awt.GridLayout;
 import java.util.ArrayList;
 import java.util.Random;
 import javax.swing.BorderFactory;
@@ -19,6 +17,7 @@ import javax.swing.JPanel;
  */
 public class Ventana extends javax.swing.JFrame {
    private ArrayList<ThreadPersonaje> zombies;
+   private ArrayList<ThreadPersonaje> defensas;
    private JPanel[][] tablero; // el tablero es una matriz
     
     /**
@@ -26,12 +25,14 @@ public class Ventana extends javax.swing.JFrame {
      */
     public Ventana() {
         zombies = new ArrayList<ThreadPersonaje>();
+        defensas = new ArrayList<ThreadPersonaje>();
         tablero = new JPanel[25][25];
         initComponents();
         crearTablero(); // funcion que crea el tablero
        // Component c1 = getJPanelTablero(24, 24);
        // addComponenteTablero(c1);
-        generarZombies(1);
+        generarZombies(10);
+        generarDefensas(10);
 
     }
     /**
@@ -210,25 +211,7 @@ public class Ventana extends javax.swing.JFrame {
             }
         }
     }
-    
-    private void dibujarTablero()
-    {
-        pnlPanelJuego.setLayout(new java.awt.GridLayout(25,25)); // crea las cuadriculas
-        for (int i = 0; i < 625; i++) { // 625 ya que son 25x25 paneles, en un grid layout se acomoda automaticamente
-            JPanel panel = new JPanel();
-            panel.setBackground(Color.LIGHT_GRAY);
-            panel.setBorder(BorderFactory.createLineBorder(Color.BLACK));
-            panel.setLayout(new java.awt.BorderLayout(1,1));
-            pnlPanelJuego.add(panel);
-        }
-    }
-    // funcion que vacia una casilla dada
-    private void vaciarCasilla(int x, int y){
-    
-    
-    
-    }
-    
+  
     // esta funcion retorna el JPanel del tablero en una posicion x,y dado
     private JPanel getJPanelTablero(int filaDeseada, int columnaDeseada){
         // Obtiene la posicion de la matriz, *25 ya que son 25 cuadriculas,  inicio es (0,0)
@@ -240,21 +223,11 @@ public class Ventana extends javax.swing.JFrame {
           JPanel casilla_tablero = getJPanelTablero(fila, columna);
           casilla_tablero.add(label);
     }
+   
     
     public void moverPersonaje(JLabel label){
-       boolean isEmpty = true; // este codigo sirve para saber si la posicion esta vacia
-       int x = (new Random()).nextInt(25);
-       int y = (new Random()).nextInt(25);
-       while(isEmpty){
-           x = (new Random()).nextInt(25);
-           y = (new Random()).nextInt(25);
-           int cantidad_componentes = tablero[x][y].getComponentCount();
-           if (cantidad_componentes == 0){ // si esta vacio sale del loop
-               isEmpty = false;
-           }
-       }
-       // int x = 24;
-        //int y = 24;
+        int x = new Random().nextInt(25);
+        int y = new Random().nextInt(25);
         JPanel panel_label = tablero[x][y]; // obtiene el panel donde se ubica el JLa
         panel_label.removeAll(); // elimina todo lo que esta dentro de este panel
         addComponenteTablero(label, x, y);
@@ -273,7 +246,7 @@ public class Ventana extends javax.swing.JFrame {
             label.setOpaque(true);
             
             // crear el zombie aleatoriamente, del tipo que corresponda
-            Personaje zombie = new Personaje("Zombie", 100, 2, 3, 1, 0, "de contacto", 100);
+            Personaje zombie = new Personaje();
             zombie.setLabel(label);
             
             // Crear el thread
@@ -282,17 +255,39 @@ public class Ventana extends javax.swing.JFrame {
             
             // agrega el zombie solo en la ultima casilla exterior (0,0) hasta (0, 24) y (24,0) hasta la (24,24)
             setAparicion(label);
-            
-            
-        
-           // pnlPanelJuego.add(label);
-            //setAparicion(label);
-            //label.setSize(30, 20);
-            
-            //label.setVisible(false);
-            
+             
         }
         
+    }
+    
+    private void generarDefensas(int size){
+       // funcion que genera las defensas en el tablero
+       for (int i = 0; i < size; i++) {
+            //crea el label
+            JLabel label =  new JLabel("100%");
+            label.setBackground(Color.BLUE);
+            label.setForeground(new java.awt.Color(255, 255, 255));
+            label.setFont(new java.awt.Font("Helvetica Neue", 0, 10)); // NOI18N
+            label.setForeground(new java.awt.Color(255, 255, 255));
+            label.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+            label.setOpaque(true);
+            
+            // crear el zombie aleatoriamente, del tipo que corresponda
+            Personaje defensa = new Personaje();
+            defensa.setLabel(label);
+            
+            // Crear el thread
+            ThreadPersonaje tp =  new ThreadPersonaje(defensa, this);
+            defensas.add(tp);
+            
+            // agrega el zombie solo en la ultima casilla exterior (0,0) hasta (0, 24) y (24,0) hasta la (24,24)
+            int x = new Random().nextInt(25);
+            int y = new Random().nextInt(25);
+            addComponenteTablero(label, x, y);
+             
+        }
+    
+    
     }
     
      

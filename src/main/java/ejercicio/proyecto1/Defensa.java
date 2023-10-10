@@ -34,6 +34,7 @@ public class Defensa extends Personaje{
     public String toString() {
         return "Defensa{" + "Nombre=" + getNombre() + ", tipo=" + tipoDefensa.getNombre() + '}';
     }
+
 }
 
     

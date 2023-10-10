@@ -114,5 +114,9 @@ public class Personaje {
         this.label = label;
     }
     
+    public void morir(){
+        this.vida = 0;
+        System.out.println("Te has muerto jaja get good personaje diff");
+    }
     
 }
