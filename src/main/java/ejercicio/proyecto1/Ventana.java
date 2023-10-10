@@ -203,6 +203,7 @@ public class Ventana extends javax.swing.JFrame {
         for (int fila = 0; fila < tablero.length; fila++) {
             for (int columna = 0; columna < tablero[0].length; columna++){
                 tablero[fila][columna] = new JPanel();
+                tablero[fila][columna].addMouseListener(new Listener(fila, columna));
                // JPanel panel = new JPanel();
                 tablero[fila][columna].setBackground(Color.LIGHT_GRAY);
                 tablero[fila][columna].setBorder(BorderFactory.createLineBorder(Color.BLACK));
@@ -228,7 +229,7 @@ public class Ventana extends javax.swing.JFrame {
     public void moverPersonaje(JLabel label){
         int x = new Random().nextInt(25);
         int y = new Random().nextInt(25);
-        JPanel panel_label = tablero[x][y]; // obtiene el panel donde se ubica el JLa
+        JPanel panel_label = tablero[x][y]; // obtiene el panel donde se ubica el JLabel
         panel_label.removeAll(); // elimina todo lo que esta dentro de este panel
         addComponenteTablero(label, x, y);
         pnlPanelJuego.repaint();
@@ -260,6 +261,17 @@ public class Ventana extends javax.swing.JFrame {
         
     }
     
+    private boolean verificarCasilla(int x, int y){
+    // funcion que verifica la casilla si contiene un elemento
+            if (tablero[x][y].getComponentCount() == 0){
+                return false;
+            }
+            else{
+                return true;
+            }
+        }
+
+    
     private void generarDefensas(int size){
        // funcion que genera las defensas en el tablero
        for (int i = 0; i < size; i++) {
@@ -283,14 +295,17 @@ public class Ventana extends javax.swing.JFrame {
             // agrega el zombie solo en la ultima casilla exterior (0,0) hasta (0, 24) y (24,0) hasta la (24,24)
             int x = new Random().nextInt(25);
             int y = new Random().nextInt(25);
+            
+            // verifica si la casilla en las posiciones x,y estan vacias para agregarlo
+           
+            while(verificarCasilla(x, y)){
+                verificarCasilla(x, y);
+            }
             addComponenteTablero(label, x, y);
              
         }
-    
-    
     }
     
-     
      public void setAparicion(JLabel label){
         int colOrRow = (new Random()).nextInt(2);//0: col  1: filas
         int dir = (new Random()).nextInt(2);//0: primera  1: ultima
