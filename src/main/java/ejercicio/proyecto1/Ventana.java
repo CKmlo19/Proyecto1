@@ -244,6 +244,9 @@ public class Ventana extends javax.swing.JFrame {
         int x = (new Random()).nextInt(25);
         int y = (new Random()).nextInt(25);
         
+       // int x = 24;
+        //int y = 24;
+        
         JPanel panel_label = tablero[x][y]; // obtiene el panel donde se ubica el JLabel
         panel_label.removeAll(); // elimina todo lo que esta dentro de este panel
         addComponenteTablero(label, x, y);
@@ -268,13 +271,12 @@ public class Ventana extends javax.swing.JFrame {
             // Crear el thread
             ThreadPersonaje tp =  new ThreadPersonaje(zombie, this);
             zombies.add(tp);
-            int x = (new Random()).nextInt(25);
-            int y = (new Random()).nextInt(25);
-            addComponenteTablero(label, x, y);
+            
+            // agrega el zombie solo en la ultima casilla exterior (0,0) hasta (0, 24) y (24,0) hasta la (24,24)
+            setAparicion(label);
             
             
-           
-            
+        
            // pnlPanelJuego.add(label);
             //setAparicion(label);
             //label.setSize(30, 20);
@@ -288,19 +290,18 @@ public class Ventana extends javax.swing.JFrame {
      
      public void setAparicion(JLabel label){
         int colOrRow = (new Random()).nextInt(2);//0: col  1: filas
-            int dir = (new Random()).nextInt(2);//0: primera  1: segunda
-            if (colOrRow == 0){
+        int dir = (new Random()).nextInt(2);//0: primera  1: ultima
+            if (colOrRow == 0){ // va a colocarse en las columnas (x, 0), (x, 24)
                 if (dir == 0)
-                    label.setLocation((new Random()).nextInt(600), 0);
+                    addComponenteTablero(label, new Random().nextInt(25), 0);
                 else
-                    label.setLocation((new Random()).nextInt(600), 580);
-            }else{
+                    addComponenteTablero(label, new Random().nextInt(25), 24);
+            }else{ // va a colocarse en las filas (0, y), (24, y)
                 if (dir == 0)
-                    label.setLocation(0, (new Random()).nextInt(600));
+                    addComponenteTablero(label, 0, new Random().nextInt(25));
                 else
-                    label.setLocation(580, (new Random()).nextInt(600));
+                    addComponenteTablero(label, 24, new Random().nextInt(25));
             }
-
             //label.setVisible(true);
     }
 
