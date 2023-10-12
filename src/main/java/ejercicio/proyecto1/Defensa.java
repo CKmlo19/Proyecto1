@@ -12,16 +12,11 @@ import javax.swing.JLabel;
  * @author masis
  */
 public class Defensa extends Personaje{
-    private int posicion_x;
-    private int posicion_y;
-    private TipoZombie tipoDefensa;
-    
-    
-    public Defensa(String Nombre, int vida, int cantidad_golpes, int nivel, int campos, int nivel_aparicion, String tipo, int rango) {
-        super(Nombre, vida, cantidad_golpes, nivel, campos, nivel_aparicion, tipo, rango);
+    private TipoDefensa tipoDefensa;
+
+    public Defensa(TipoDefensa tipoDefensa, String Nombre, int vida, int cantidad_golpes, int nivel, int campos, int nivel_aparicion, String tipo, int rango, int daño, int posicion_x, int posicion_y) {
+        super(Nombre, vida, cantidad_golpes, nivel, campos, nivel_aparicion, tipo, rango, daño, posicion_x, posicion_y);
         this.tipoDefensa = tipoDefensa;
-        this.posicion_x = posicion_x;
-        this.posicion_y = posicion_y;
     }
     
         public JLabel getLabel() {
@@ -35,7 +30,11 @@ public class Defensa extends Personaje{
         return "Defensa{" + "Nombre=" + getNombre() + ", tipo=" + tipoDefensa.getNombre() + '}';
     }
 
+
+
 }
+
+
 
     
     
