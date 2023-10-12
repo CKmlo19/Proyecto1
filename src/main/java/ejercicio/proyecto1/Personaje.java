@@ -25,21 +25,20 @@ public abstract class Personaje {
     int posicion_y;
     JLabel label;
 
-    public Personaje(String Nombre, int vida, int cantidad_golpes, int nivel, int campos, int nivel_aparicion, String tipo, int rango) {
-        this.Nombre = Nombre;
-        this.vida = vida;
-        this.cantidad_golpes = cantidad_golpes;
-        this.nivel = nivel;
-        this.campos = campos;
-        this.nivel_aparicion = nivel_aparicion;
-        this.tipo = tipo;
-        this.rango = rango;
-        this.golpes = golpes;
-        this.daño = daño;
-        this.posicion_x = posicion_x;
-        this.posicion_y = posicion_y;
-    }
-    
+public Personaje(String Nombre, int vida, int cantidad_golpes, int nivel, int campos, int nivel_aparicion, String tipo, int rango, int daño, int posicion_x, int posicion_y) {
+    this.Nombre = Nombre;
+    this.vida = vida;
+    this.cantidad_golpes = cantidad_golpes;
+    this.nivel = nivel;
+    this.campos = campos;
+    this.nivel_aparicion = nivel_aparicion;
+    this.tipo = tipo;
+    this.rango = rango;
+    this.daño = daño;
+    this.posicion_x = posicion_x;
+    this.posicion_y = posicion_y;
+}
+
     public Personaje() {
        
     }
