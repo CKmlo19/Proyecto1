@@ -10,21 +10,46 @@ package ejercicio.proyecto1;
  */
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import javax.swing.JLabel;
 
 public class Listener_Tablero extends MouseAdapter {
     private int fila;
     private int columna;
+    private Ventana refVentana;
 
-    public Listener_Tablero(int fila, int columna) {
+    public Listener_Tablero(int fila, int columna, Ventana refVentana) {
         this.fila = fila;
         this.columna = columna;
+        this.refVentana = refVentana;
     }
-    
-    
 
+    public Listener_Tablero(JLabel label, Ventana refVentana) {
+        this.refVentana = refVentana;
+    }
+     
     @Override
     public void mouseClicked(MouseEvent e) {
-        System.out.println("Clic en JPanel en fila: " + fila + ", columna: " + columna);
+        if(refVentana.isEnable()){ // si el enable es true
+            refVentana.addDefensa(refVentana.getLabel_seleccionado(), fila, columna);
+            refVentana.getPnlPanelJuego().repaint();
+            refVentana.getPnlDefensas().repaint();
+        }else{
+        
+        }
     }
+    
+    
+    
+    
+    // getters
+    public int getFila(){
+        return fila;
+    
+    }
+    public int getColumna() {
+        return columna;
+    }
+    
+    
 }
 

@@ -21,6 +21,9 @@ import javax.swing.border.EmptyBorder;
 public class Ventana extends javax.swing.JFrame {
    private ArrayList<ThreadPersonaje> zombies;
    private ArrayList<ThreadPersonaje> defensas;
+   private ArrayList<JLabel> labels_defensas;
+   private JLabel label_seleccionado;
+   private boolean enable = false;
    private JPanel[][] tablero; // el tablero es una matriz
     
     /**
@@ -29,15 +32,17 @@ public class Ventana extends javax.swing.JFrame {
     public Ventana() {
         zombies = new ArrayList<ThreadPersonaje>();
         defensas = new ArrayList<ThreadPersonaje>();
+        labels_defensas = new ArrayList<JLabel>();
         tablero = new JPanel[25][25];
         initComponents();
+        lblSeleccion_Defensa.setVisible(enable);
         pnlDefensas.setLayout(new java.awt.GridLayout());
         crearTablero(); // funcion que crea el tablero
        // Component c1 = getJPanelTablero(24, 24);
        // addComponenteTablero(c1);
         generarZombies(10);
         generarDefensas(10);
-        generarDefensasContenedor(4);
+        generarDefensasContenedor(7);
     }
     /**
      * This method is called from within the constructor to initialize the form.
@@ -54,6 +59,7 @@ public class Ventana extends javax.swing.JFrame {
         btnDetener = new javax.swing.JButton();
         btnAgregarDefensa = new javax.swing.JButton();
         pnlDefensas = new javax.swing.JPanel();
+        lblSeleccion_Defensa = new javax.swing.JLabel();
 
         jPanel5.setBackground(new java.awt.Color(255, 51, 51));
         jPanel5.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
@@ -97,48 +103,64 @@ public class Ventana extends javax.swing.JFrame {
         });
 
         btnAgregarDefensa.setText("Agregar Defensa");
-        btnAgregarDefensa.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnAgregarDefensaActionPerformed(evt);
+        btnAgregarDefensa.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnAgregarDefensaMouseClicked(evt);
             }
         });
 
         pnlDefensas.setBackground(new java.awt.Color(255, 255, 255));
         pnlDefensas.setLayout(new javax.swing.BoxLayout(pnlDefensas, javax.swing.BoxLayout.LINE_AXIS));
 
+        lblSeleccion_Defensa.setForeground(new java.awt.Color(0, 0, 0));
+        lblSeleccion_Defensa.setText("Se ha seleccionado una defensa!");
+        lblSeleccion_Defensa.setEnabled(false);
+        lblSeleccion_Defensa.setOpaque(true);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(61, 61, 61)
-                .addComponent(pnlPanelJuego, javax.swing.GroupLayout.PREFERRED_SIZE, 881, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(83, Short.MAX_VALUE))
-            .addGroup(layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGap(119, 119, 119)
                 .addComponent(btnInicio)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(btnAgregarDefensa)
                 .addGap(36, 36, 36)
                 .addComponent(pnlDefensas, javax.swing.GroupLayout.PREFERRED_SIZE, 249, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(btnDetener)
-                .addGap(181, 181, 181))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(116, 116, 116)
+                        .addComponent(btnDetener))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(18, 18, 18)
+                        .addComponent(lblSeleccion_Defensa)))
+                .addGap(123, 123, 123))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(61, 61, 61)
+                .addComponent(pnlPanelJuego, javax.swing.GroupLayout.PREFERRED_SIZE, 881, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(83, 83, 83))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(38, 38, 38)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(btnInicio)
-                            .addComponent(btnDetener)
                             .addComponent(btnAgregarDefensa))
                         .addGap(45, 45, 45))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(pnlDefensas, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(pnlDefensas, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(26, 26, 26)
+                                .addComponent(lblSeleccion_Defensa)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(btnDetener)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)))
                 .addComponent(pnlPanelJuego, javax.swing.GroupLayout.PREFERRED_SIZE, 631, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(63, Short.MAX_VALUE))
@@ -189,10 +211,10 @@ public class Ventana extends javax.swing.JFrame {
 //        }
 //       btnDetener.setText("Reanudar");
     }//GEN-LAST:event_btnDetenerActionPerformed
-
-    private void btnAgregarDefensaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarDefensaActionPerformed
+ 
+    private void btnAgregarDefensaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAgregarDefensaMouseClicked
         // TODO add your handling code here:
-    }//GEN-LAST:event_btnAgregarDefensaActionPerformed
+    }//GEN-LAST:event_btnAgregarDefensaMouseClicked
 
     /**
      * @param args the command line arguments
@@ -234,8 +256,7 @@ public class Ventana extends javax.swing.JFrame {
         for (int fila = 0; fila < tablero.length; fila++) {
             for (int columna = 0; columna < tablero[0].length; columna++){
                 tablero[fila][columna] = new JPanel();
-                tablero[fila][columna].addMouseListener(new Listener_Tablero(fila, columna)); // agrega un listener a cada panel
-               // JPanel panel = new JPanel();
+                tablero[fila][columna].addMouseListener(new Listener_Tablero(fila, columna, this)); // agrega un listener a cada panel
                 tablero[fila][columna].setBackground(Color.LIGHT_GRAY);
                 tablero[fila][columna].setBorder(BorderFactory.createLineBorder(Color.BLACK));
                 tablero[fila][columna].setLayout(new java.awt.BorderLayout(1,1));
@@ -337,6 +358,18 @@ public class Ventana extends javax.swing.JFrame {
         }
     }
     
+    public void addDefensa(JLabel label, int fila, int columna){
+       // funcion que añade la defensa en el tablero
+            Personaje defensa = new Personaje();
+            defensa.setLabel(label);
+            
+            // Crear el thread
+            ThreadPersonaje tp =  new ThreadPersonaje(defensa, this);
+            defensas.add(tp);  
+            addComponenteTablero(label, fila, columna);
+            pnlPanelJuego.repaint();
+    }
+    
     public void generarDefensasContenedor(int size){
         for (int i = 0; i < size; i++) {
             JLabel label1 = new JLabel("100");
@@ -344,8 +377,9 @@ public class Ventana extends javax.swing.JFrame {
             label1.setForeground(Color.white);
             label1.setOpaque(true);
             label1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-            label1.addMouseListener(new Listener_Defensas(this));
+            label1.addMouseListener(new Listener_Defensas(this, label1));
             label1.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+            labels_defensas.add(label1);
             pnlDefensas.add(label1);
         }
     }
@@ -366,17 +400,72 @@ public class Ventana extends javax.swing.JFrame {
             }
             //label.setVisible(true);
     }
+     
+     
+   
+     
+     // getters and setters
 
     public JPanel getPnlDefensas() {
         return pnlDefensas;
     }
 
+    public ArrayList<ThreadPersonaje> getZombies() {
+        return zombies;
+    }
+
+    public ArrayList<ThreadPersonaje> getDefensas() {
+        return defensas;
+    }
+
+    public JPanel[][] getTablero() {
+        return tablero;
+    }
+
+    public JPanel getPnlPanelJuego() {
+        return pnlPanelJuego;
+    }
+
+    public void setLblSeleccion_Defensa(JLabel lblSeleccion_Defensa) {
+        this.lblSeleccion_Defensa = lblSeleccion_Defensa;
+    }
+
+
+    public JLabel getLblSeleccion_Defensa() {
+        return lblSeleccion_Defensa;
+    }
+
+    public ArrayList<JLabel> getLabels_defensas() {
+        return labels_defensas;
+    }
+
+
+    public void setLabel_seleccionado(JLabel label_seleccionado) {
+        this.label_seleccionado = label_seleccionado;
+    }
+
+    public JLabel getLabel_seleccionado() {
+        return label_seleccionado;
+    }
+
+    public boolean isEnable() {
+        return enable;
+    }
+
+    public void setEnable(boolean enable) {
+        this.enable = enable;
+    }
+
+    
+    
+    
         
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAgregarDefensa;
     private javax.swing.JButton btnDetener;
     private javax.swing.JButton btnInicio;
     private javax.swing.JPanel jPanel5;
+    private javax.swing.JLabel lblSeleccion_Defensa;
     private javax.swing.JPanel pnlDefensas;
     private javax.swing.JPanel pnlPanelJuego;
     // End of variables declaration//GEN-END:variables
