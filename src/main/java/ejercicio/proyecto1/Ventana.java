@@ -246,7 +246,7 @@ public class Ventana extends javax.swing.JFrame {
             label.setOpaque(true);
             
             // crear el zombie aleatoriamente, del tipo que corresponda
-            Personaje zombie = new Personaje();
+            Personaje zombie = new Personaje() {};
             zombie.setLabel(label);
             
             // Crear el thread
@@ -273,7 +273,7 @@ public class Ventana extends javax.swing.JFrame {
             label.setOpaque(true);
             
             // crear el zombie aleatoriamente, del tipo que corresponda
-            Personaje defensa = new Personaje();
+            Personaje defensa = new Personaje() {};
             defensa.setLabel(label);
             
             // Crear el thread
