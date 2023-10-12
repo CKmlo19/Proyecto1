@@ -12,6 +12,7 @@ import java.util.Random;
 import javax.swing.BorderFactory;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.border.EmptyBorder;
 
 /**
  *
@@ -36,20 +37,7 @@ public class Ventana extends javax.swing.JFrame {
        // addComponenteTablero(c1);
         generarZombies(10);
         generarDefensas(10);
-        JLabel label1 = new JLabel("100");
-        label1.setBackground(Color.blue);
-        label1.setOpaque(true);
-        label1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        label1.addMouseListener(new MouseAdapter(){
-        public void mouseClicked(MouseEvent e) {
-            boolean enable = true;
-                // Acciones a realizar cuando se hace clic en label1
-                System.out.println("Voila");
-                pnlDefensas.setEnabled(!enable);
-            }
-        });
-        pnlDefensas.add(label1);
-
+        generarDefensasContenedor(4);
     }
     /**
      * This method is called from within the constructor to initialize the form.
@@ -350,8 +338,16 @@ public class Ventana extends javax.swing.JFrame {
     }
     
     public void generarDefensasContenedor(int size){
-    
-    
+        for (int i = 0; i < size; i++) {
+            JLabel label1 = new JLabel("100");
+            label1.setBackground(Color.ORANGE);
+            label1.setForeground(Color.white);
+            label1.setOpaque(true);
+            label1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+            label1.addMouseListener(new Listener_Defensas(this));
+            label1.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+            pnlDefensas.add(label1);
+        }
     }
     
      public void setAparicion(JLabel label){
@@ -369,6 +365,10 @@ public class Ventana extends javax.swing.JFrame {
                     addComponenteTablero(label, 24, new Random().nextInt(25));
             }
             //label.setVisible(true);
+    }
+
+    public JPanel getPnlDefensas() {
+        return pnlDefensas;
     }
 
         
