@@ -10,15 +10,19 @@ import javax.swing.JLabel;
  *
  * @author luisc
  */
-public class Personaje {
+public abstract class Personaje {
     String Nombre;
     int vida;
+    int golpes;
     int cantidad_golpes;
     int nivel;
     int campos;
     int nivel_aparicion;
     String tipo;
     int rango;
+    int daño;
+    int posicion_x;
+    int posicion_y;
     JLabel label;
 
     public Personaje(String Nombre, int vida, int cantidad_golpes, int nivel, int campos, int nivel_aparicion, String tipo, int rango) {
@@ -30,6 +34,10 @@ public class Personaje {
         this.nivel_aparicion = nivel_aparicion;
         this.tipo = tipo;
         this.rango = rango;
+        this.golpes = golpes;
+        this.daño = daño;
+        this.posicion_x = posicion_x;
+        this.posicion_y = posicion_y;
     }
     
     public Personaje() {
@@ -105,6 +113,14 @@ public class Personaje {
     public void setRango(int rango) {
         this.rango = rango;
     }
+    
+    public void setDaño(int daño) {
+        this.daño = daño;
+    }
+
+    public int getDaño() {
+        return daño;
+    }
 
     public JLabel getLabel() {
         return label;
@@ -119,4 +135,12 @@ public class Personaje {
         System.out.println("Te has muerto jaja get good personaje diff");
     }
     
+    public void pelear(Personaje oponente) {
+        int dañoTotal = this.cantidad_golpes * this.daño;
+        oponente.vida -= dañoTotal;  
+        if (oponente.vida <= 0) {
+            oponente.morir();
+        }
+    }
+
 }
