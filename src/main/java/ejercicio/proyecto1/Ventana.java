@@ -327,8 +327,6 @@ public void zombieAtacarDefensaMasCercana(Zombie zombie) {
 
     for (ThreadPersonaje threadDefensa : defensas) {
         Defensa defensa = (Defensa) threadDefensa.personaje;
-
-      
         double distancia = calcularDistancia(zombie, defensa);
 
         if (distancia < distanciaMinima) {
@@ -341,6 +339,26 @@ public void zombieAtacarDefensaMasCercana(Zombie zombie) {
         zombie.pelear(defensaMasCercana);
     }
 }     
+
+public void defensaAtacarZombieMasCercano(Defensa defensa) {
+    Zombie zombieMasCercano = null;
+    double distanciaMinima  = Math.sqrt(25 * 25 + 25 * 25);
+
+    for (ThreadPersonaje threadZombie : zombies) {
+        Zombie zombie = (Zombie) threadZombie.personaje;
+        double distancia = calcularDistancia(defensa, zombie);
+
+        if (distancia < distanciaMinima) {
+            distanciaMinima = distancia;
+            zombieMasCercano = zombie;
+        }
+    }
+
+    if (zombieMasCercano != null) {
+        defensa.pelear(zombieMasCercano);
+    }
+}
+
     
         
     // Variables declaration - do not modify//GEN-BEGIN:variables
