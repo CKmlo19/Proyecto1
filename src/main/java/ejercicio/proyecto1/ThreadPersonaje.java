@@ -30,7 +30,7 @@ public class ThreadPersonaje extends Thread{
                 refVentana.moverPersonaje(personaje.getLabel());
                 sleep(1000);
             } catch (InterruptedException ex) {
-                
+                System.out.println("Se ha interrumpido el programa");
             }
             
         }

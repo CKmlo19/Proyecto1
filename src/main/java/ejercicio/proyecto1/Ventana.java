@@ -5,6 +5,8 @@
 package ejercicio.proyecto1;
 
 import java.awt.Color;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.util.Random;
 import javax.swing.BorderFactory;
@@ -28,11 +30,25 @@ public class Ventana extends javax.swing.JFrame {
         defensas = new ArrayList<ThreadPersonaje>();
         tablero = new JPanel[25][25];
         initComponents();
+        pnlDefensas.setLayout(new java.awt.GridLayout());
         crearTablero(); // funcion que crea el tablero
        // Component c1 = getJPanelTablero(24, 24);
        // addComponenteTablero(c1);
         generarZombies(10);
         generarDefensas(10);
+        JLabel label1 = new JLabel("100");
+        label1.setBackground(Color.blue);
+        label1.setOpaque(true);
+        label1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        label1.addMouseListener(new MouseAdapter(){
+        public void mouseClicked(MouseEvent e) {
+            boolean enable = true;
+                // Acciones a realizar cuando se hace clic en label1
+                System.out.println("Voila");
+                pnlDefensas.setEnabled(!enable);
+            }
+        });
+        pnlDefensas.add(label1);
 
     }
     /**
@@ -48,6 +64,8 @@ public class Ventana extends javax.swing.JFrame {
         pnlPanelJuego = new javax.swing.JPanel();
         btnInicio = new javax.swing.JButton();
         btnDetener = new javax.swing.JButton();
+        btnAgregarDefensa = new javax.swing.JButton();
+        pnlDefensas = new javax.swing.JPanel();
 
         jPanel5.setBackground(new java.awt.Color(255, 51, 51));
         jPanel5.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
@@ -90,6 +108,16 @@ public class Ventana extends javax.swing.JFrame {
             }
         });
 
+        btnAgregarDefensa.setText("Agregar Defensa");
+        btnAgregarDefensa.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAgregarDefensaActionPerformed(evt);
+            }
+        });
+
+        pnlDefensas.setBackground(new java.awt.Color(255, 255, 255));
+        pnlDefensas.setLayout(new javax.swing.BoxLayout(pnlDefensas, javax.swing.BoxLayout.LINE_AXIS));
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -102,19 +130,30 @@ public class Ventana extends javax.swing.JFrame {
                 .addGap(119, 119, 119)
                 .addComponent(btnInicio)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btnAgregarDefensa)
+                .addGap(36, 36, 36)
+                .addComponent(pnlDefensas, javax.swing.GroupLayout.PREFERRED_SIZE, 249, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
                 .addComponent(btnDetener)
                 .addGap(181, 181, 181))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(38, 38, 38)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnInicio)
-                    .addComponent(btnDetener))
-                .addGap(42, 42, 42)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(38, 38, 38)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(btnInicio)
+                            .addComponent(btnDetener)
+                            .addComponent(btnAgregarDefensa))
+                        .addGap(45, 45, 45))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(pnlDefensas, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)))
                 .addComponent(pnlPanelJuego, javax.swing.GroupLayout.PREFERRED_SIZE, 631, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(66, Short.MAX_VALUE))
+                .addContainerGap(63, Short.MAX_VALUE))
         );
 
         pack();
@@ -163,6 +202,10 @@ public class Ventana extends javax.swing.JFrame {
 //       btnDetener.setText("Reanudar");
     }//GEN-LAST:event_btnDetenerActionPerformed
 
+    private void btnAgregarDefensaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarDefensaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnAgregarDefensaActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -203,7 +246,7 @@ public class Ventana extends javax.swing.JFrame {
         for (int fila = 0; fila < tablero.length; fila++) {
             for (int columna = 0; columna < tablero[0].length; columna++){
                 tablero[fila][columna] = new JPanel();
-                tablero[fila][columna].addMouseListener(new Listener(fila, columna));
+                tablero[fila][columna].addMouseListener(new Listener_Tablero(fila, columna)); // agrega un listener a cada panel
                // JPanel panel = new JPanel();
                 tablero[fila][columna].setBackground(Color.LIGHT_GRAY);
                 tablero[fila][columna].setBorder(BorderFactory.createLineBorder(Color.BLACK));
@@ -306,6 +349,11 @@ public class Ventana extends javax.swing.JFrame {
         }
     }
     
+    public void generarDefensasContenedor(int size){
+    
+    
+    }
+    
      public void setAparicion(JLabel label){
         int colOrRow = (new Random()).nextInt(2);//0: col  1: filas
         int dir = (new Random()).nextInt(2);//0: primera  1: ultima
@@ -325,9 +373,11 @@ public class Ventana extends javax.swing.JFrame {
 
         
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnAgregarDefensa;
     private javax.swing.JButton btnDetener;
     private javax.swing.JButton btnInicio;
     private javax.swing.JPanel jPanel5;
+    private javax.swing.JPanel pnlDefensas;
     private javax.swing.JPanel pnlPanelJuego;
     // End of variables declaration//GEN-END:variables
 }

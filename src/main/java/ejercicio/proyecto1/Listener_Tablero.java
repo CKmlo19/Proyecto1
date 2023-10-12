@@ -11,19 +11,20 @@ package ejercicio.proyecto1;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
-public class Listener extends MouseAdapter {
+public class Listener_Tablero extends MouseAdapter {
     private int fila;
     private int columna;
 
-    public Listener(int fila, int columna) {
+    public Listener_Tablero(int fila, int columna) {
         this.fila = fila;
         this.columna = columna;
     }
+    
+    
 
     @Override
     public void mouseClicked(MouseEvent e) {
         System.out.println("Clic en JPanel en fila: " + fila + ", columna: " + columna);
-        // Realiza las acciones que desees con las coordenadas
     }
 }
 
