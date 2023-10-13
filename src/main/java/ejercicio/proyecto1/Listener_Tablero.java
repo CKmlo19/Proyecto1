@@ -30,6 +30,8 @@ public class Listener_Tablero extends MouseAdapter {
     @Override
     public void mouseClicked(MouseEvent e) {
         if(refVentana.isEnable()){ // si el enable es true
+            refVentana.getLblSeleccion_Defensa().setVisible(!refVentana.isEnable());
+            refVentana.setEnable(!refVentana.isEnable());
             refVentana.addDefensa(refVentana.getLabel_seleccionado(), fila, columna);
             refVentana.getPnlPanelJuego().repaint();
             refVentana.getPnlDefensas().repaint();
